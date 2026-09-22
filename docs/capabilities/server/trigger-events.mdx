@@ -2,7 +2,7 @@
 
 Use this catalog to choose a trigger and understand the request sent to your endpoint. For configuration and handler examples, see [Triggers](./triggers).
 
-The request types on this page are exported by `@devvit/web/shared`. Select a linked request type to open its generated schema, or expand **View payload fields** for its top-level fields and optionality. Use your installed package's TypeScript definitions as the source of truth for nested objects.
+The request types on this page are exported by `@devvit/web/shared`. Select a linked request type to open its underlying JSON payload declaration (the Web request also adds the `type` discriminator), or expand **View payload fields** for its top-level fields and optionality. Use your installed package's TypeScript definitions as the source of truth for nested objects.
 
 [post-v2-type]: https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/postv2.d.ts
 [comment-v2-type]: https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/commentv2.d.ts
@@ -35,26 +35,26 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 | Trigger key                    | Represents                                          | Payload type                                                                                                                      | Delivery and safety                  | Details                               |
 | ------------------------------ | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------------------------------- |
-| `onPostSubmit`                 | A newly submitted post                              | [`OnPostSubmitRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostSubmit)                                 | Does not wait for media checks       | [View](#onpostsubmit)                 |
-| `onPostCreate`                 | A newly created post after additional processing    | [`OnPostCreateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostCreate)                                 | Allows time for media checks         | [View](#onpostcreate)                 |
-| `onPostUpdate`                 | An edit to a post's body                            | [`OnPostUpdateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostUpdate)                                 | Allows applicable media checks       | [View](#onpostupdate)                 |
-| `onPostReport`                 | A report on a post                                  | [`OnPostReportRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostReport)                                 | State-change event                   | [View](#onpostreport)                 |
-| `onPostDelete`                 | A post deletion or removal                          | [`OnPostDeleteRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostDelete)                                 | State-change event                   | [View](#onpostdelete)                 |
-| `onPostFlairUpdate`            | A post flair change                                 | [`OnPostFlairUpdateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostFlairUpdate)                       | State-change event                   | [View](#onpostflairupdate)            |
-| `onPostNsfwUpdate`             | A post's NSFW status changing                       | [`OnPostNsfwUpdateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostNsfwUpdate)                         | State-change event                   | [View](#onpostnsfwupdate)             |
-| `onPostSpoilerUpdate`          | A post's spoiler status changing                    | [`OnPostSpoilerUpdateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostSpoilerUpdate)                   | State-change event                   | [View](#onpostspoilerupdate)          |
-| `onCommentSubmit`              | A newly submitted comment                           | [`OnCommentSubmitRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/CommentSubmit)                           | Does not wait for media checks       | [View](#oncommentsubmit)              |
-| `onCommentCreate`              | A newly created comment after additional processing | [`OnCommentCreateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/CommentCreate)                           | Allows time for media checks         | [View](#oncommentcreate)              |
-| `onCommentUpdate`              | An edit to a comment's body                         | [`OnCommentUpdateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/CommentUpdate)                           | Allows applicable media checks       | [View](#oncommentupdate)              |
-| `onCommentReport`              | A report on a comment                               | [`OnCommentReportRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/CommentReport)                           | State-change event                   | [View](#oncommentreport)              |
-| `onCommentDelete`              | A comment deletion or removal                       | [`OnCommentDeleteRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/CommentDelete)                           | State-change event                   | [View](#oncommentdelete)              |
-| `onModAction`                  | An entry in a community's moderation log            | [`OnModActionRequest`](../../api/public-api/type-aliases/ModActionDefinition)                                                     | Moderation event                     | [View](#onmodaction)                  |
-| `onModMail`                    | A new modmail message                               | [`OnModMailRequest`](../../api/public-api/type-aliases/ModMailDefinition)                                                         | Messaging event                      | [View](#onmodmail)                    |
-| `onAutomoderatorFilterPost`    | AutoModerator filtering a post                      | [`OnAutomoderatorFilterPostRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/AutomoderatorFilterPost)       | Filtered-content event               | [View](#onautomoderatorfilterpost)    |
-| `onAutomoderatorFilterComment` | AutoModerator filtering a comment                   | [`OnAutomoderatorFilterCommentRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/AutomoderatorFilterComment) | Filtered-content event               | [View](#onautomoderatorfiltercomment) |
-| `onAppInstall`                 | An app installation in a subreddit                  | [`OnAppInstallRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/AppInstall)                                 | Lifecycle event                      | [View](#onappinstall)                 |
-| `onAppUpgrade`                 | An installation moving to a different app version   | [`OnAppUpgradeRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/AppUpgrade)                                 | Lifecycle event                      | [View](#onappupgrade)                 |
-| `onMentionInCommentCreate`     | A new comment that mentions the app username        | [`OnMentionInCommentCreateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/MentionInCommentCreate)         | Global; allows time for media checks | [View](#onmentionincommentcreate)     |
+| `onPostSubmit`                 | A newly submitted post                              | [`OnPostSubmitRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | Does not wait for media checks       | [View](#onpostsubmit)                 |
+| `onPostCreate`                 | A newly created post after additional processing    | [`OnPostCreateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | Allows time for media checks         | [View](#onpostcreate)                 |
+| `onPostUpdate`                 | An edit to a post's body                            | [`OnPostUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | Allows applicable media checks       | [View](#onpostupdate)                 |
+| `onPostReport`                 | A report on a post                                  | [`OnPostReportRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | State-change event                   | [View](#onpostreport)                 |
+| `onPostDelete`                 | A post deletion or removal                          | [`OnPostDeleteRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | State-change event                   | [View](#onpostdelete)                 |
+| `onPostFlairUpdate`            | A post flair change                                 | [`OnPostFlairUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                       | State-change event                   | [View](#onpostflairupdate)            |
+| `onPostNsfwUpdate`             | A post's NSFW status changing                       | [`OnPostNsfwUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                         | State-change event                   | [View](#onpostnsfwupdate)             |
+| `onPostSpoilerUpdate`          | A post's spoiler status changing                    | [`OnPostSpoilerUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                   | State-change event                   | [View](#onpostspoilerupdate)          |
+| `onCommentSubmit`              | A newly submitted comment                           | [`OnCommentSubmitRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                           | Does not wait for media checks       | [View](#oncommentsubmit)              |
+| `onCommentCreate`              | A newly created comment after additional processing | [`OnCommentCreateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                           | Allows time for media checks         | [View](#oncommentcreate)              |
+| `onCommentUpdate`              | An edit to a comment's body                         | [`OnCommentUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                           | Allows applicable media checks       | [View](#oncommentupdate)              |
+| `onCommentReport`              | A report on a comment                               | [`OnCommentReportRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                           | State-change event                   | [View](#oncommentreport)              |
+| `onCommentDelete`              | A comment deletion or removal                       | [`OnCommentDeleteRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                           | State-change event                   | [View](#oncommentdelete)              |
+| `onModAction`                  | An entry in a community's moderation log            | [`OnModActionRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/modaction.d.ts)                                                     | Moderation event                     | [View](#onmodaction)                  |
+| `onModMail`                    | A new modmail message                               | [`OnModMailRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/modmail.d.ts)                                                         | Messaging event                      | [View](#onmodmail)                    |
+| `onAutomoderatorFilterPost`    | AutoModerator filtering a post                      | [`OnAutomoderatorFilterPostRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)       | Filtered-content event               | [View](#onautomoderatorfilterpost)    |
+| `onAutomoderatorFilterComment` | AutoModerator filtering a comment                   | [`OnAutomoderatorFilterCommentRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts) | Filtered-content event               | [View](#onautomoderatorfiltercomment) |
+| `onAppInstall`                 | An app installation in a subreddit                  | [`OnAppInstallRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | Lifecycle event                      | [View](#onappinstall)                 |
+| `onAppUpgrade`                 | An installation moving to a different app version   | [`OnAppUpgradeRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | Lifecycle event                      | [View](#onappupgrade)                 |
+| `onMentionInCommentCreate`     | A new comment that mentions the app username        | [`OnMentionInCommentCreateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)         | Global; allows time for media checks | [View](#onmentionincommentcreate)     |
 
 ## Post events
 
@@ -64,7 +64,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This event favors faster delivery and does not wait for outstanding [media safety checks](#what-safety-processing-means). A known high-severity illegal-content match can still suppress the event. The post can later be edited, removed, or deleted.
 
-**Payload:** [`OnPostSubmitRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostSubmit)
+**Payload:** [`OnPostSubmitRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -86,7 +86,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** Delivery is intentionally later than `onPostSubmit` to allow relevant [media safety checks](#what-safety-processing-means) to complete. A known match can suppress the event. If no check applies or an applicable check has not completed by the delivery deadline, the event can still be delivered. Receiving it does not certify the post as safe, approved, or permanently available.
 
-**Payload:** [`OnPostCreateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostCreate)
+**Payload:** [`OnPostCreateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -108,7 +108,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** Applicable [media safety checks](#what-safety-processing-means) can delay this event, and a known match can suppress it. The `post` object is a snapshot containing the updated body.
 
-**Payload:** [`OnPostUpdateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostUpdate)
+**Payload:** [`OnPostUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -131,7 +131,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a state-change event. The reported post can already be removed, changed, or unavailable when your handler runs.
 
-**Payload:** [`OnPostReportRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostReport)
+**Payload:** [`OnPostReportRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -153,7 +153,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This event describes a deletion action. It carries identifiers and metadata instead of the deleted post body.
 
-**Payload:** [`OnPostDeleteRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostDelete)
+**Payload:** [`OnPostDeleteRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -179,7 +179,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a state-change event. It is separate from edits to the post body.
 
-**Payload:** [`OnPostFlairUpdateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostFlairUpdate)
+**Payload:** [`OnPostFlairUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -201,7 +201,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a state-change event and can contain NSFW content. The boolean field is the new state.
 
-**Payload:** [`OnPostNsfwUpdateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostNsfwUpdate)
+**Payload:** [`OnPostNsfwUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -224,7 +224,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a state-change event. The boolean field is the new state.
 
-**Payload:** [`OnPostSpoilerUpdateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/PostSpoilerUpdate)
+**Payload:** [`OnPostSpoilerUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -249,7 +249,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This event favors faster delivery and does not wait for outstanding [media safety checks](#what-safety-processing-means). A known high-severity illegal-content match can still suppress the event. The comment can later be edited, removed, or deleted.
 
-**Payload:** [`OnCommentSubmitRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/CommentSubmit)
+**Payload:** [`OnCommentSubmitRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -272,7 +272,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** Delivery is intentionally later than `onCommentSubmit` to allow relevant [media safety checks](#what-safety-processing-means) to complete. A known match can suppress the event. If no check applies or an applicable check has not completed by the delivery deadline, the event can still be delivered. Receiving it does not certify the comment or its parent post as safe, approved, or permanently available.
 
-**Payload:** [`OnCommentCreateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/CommentCreate)
+**Payload:** [`OnCommentCreateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -295,7 +295,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** Applicable [media safety checks](#what-safety-processing-means) can delay this event, and a known match can suppress it. The `comment` object is a snapshot containing the updated body.
 
-**Payload:** [`OnCommentUpdateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/CommentUpdate)
+**Payload:** [`OnCommentUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -319,7 +319,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a state-change event. The reported comment can already be removed, changed, or unavailable when your handler runs.
 
-**Payload:** [`OnCommentReportRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/CommentReport)
+**Payload:** [`OnCommentReportRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -341,7 +341,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This event describes a deletion action. It carries identifiers and metadata instead of the deleted comment body.
 
-**Payload:** [`OnCommentDeleteRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/CommentDelete)
+**Payload:** [`OnCommentDeleteRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -371,7 +371,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a moderation event. Its target content can already be unavailable or sanitized when your handler runs.
 
-**Payload:** [`OnModActionRequest`](../../api/public-api/type-aliases/ModActionDefinition)
+**Payload:** [`OnModActionRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/modaction.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -398,7 +398,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a messaging event. It contains message and conversation metadata, not the message body.
 
-**Payload:** [`OnModMailRequest`](../../api/public-api/type-aliases/ModMailDefinition)
+**Payload:** [`OnModMailRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/modmail.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -427,7 +427,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This event intentionally represents filtered content. Treat the post and reason as sensitive, untrusted input.
 
-**Payload:** [`OnAutomoderatorFilterPostRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/AutomoderatorFilterPost)
+**Payload:** [`OnAutomoderatorFilterPostRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -451,7 +451,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This event intentionally represents filtered content. Treat the comment and reason as sensitive, untrusted input.
 
-**Payload:** [`OnAutomoderatorFilterCommentRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/AutomoderatorFilterComment)
+**Payload:** [`OnAutomoderatorFilterCommentRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -477,7 +477,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This lifecycle event is produced by an installation change, not by an ordinary app upload.
 
-**Payload:** [`OnAppInstallRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/AppInstall)
+**Payload:** [`OnAppInstallRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -498,7 +498,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This lifecycle event is produced when an installation changes version. Uploading or publishing a version does not by itself invoke every installation.
 
-**Payload:** [`OnAppUpgradeRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/AppUpgrade)
+**Payload:** [`OnAppUpgradeRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
@@ -521,7 +521,7 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This limited-access global event allows time for applicable [media safety checks](#what-safety-processing-means) on the comment and its parent post. A known match can suppress the event, but ordinary NSFW content can still be present.
 
-**Payload:** [`OnMentionInCommentCreateRequest`](../../api/public-api/@devvit/namespaces/EventTypes/interfaces/MentionInCommentCreate)
+**Payload:** [`OnMentionInCommentCreateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
 
 <details>
 <summary>View payload fields</summary>
