@@ -2,13 +2,7 @@
 
 Use this catalog to choose a trigger and understand the request sent to your endpoint. For configuration and handler examples, see [Triggers](./triggers).
 
-The request types on this page are exported by `@devvit/web/shared`. Select a linked request type to open its underlying JSON payload declaration (the Web request also adds the `type` discriminator), or expand **View payload fields** for its top-level fields and optionality. Use your installed package's TypeScript definitions as the source of truth for nested objects.
-
-[post-v2-type]: https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/postv2.d.ts
-[comment-v2-type]: https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/commentv2.d.ts
-[user-v2-type]: https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/userv2.d.ts
-[subreddit-v2-type]: https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/subredditv2.d.ts
-[mentions-type]: https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/mention.d.ts
+The request types on this page are exported by `@devvit/web/shared`. Select a linked request type to jump to its payload fields, then expand **View payload fields** for top-level fields and optionality. Use your installed package's TypeScript definitions as the source of truth for nested objects.
 
 ## Delivery and payload expectations
 
@@ -35,26 +29,26 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 | Trigger key                    | Represents                                          | Payload type                                                                                                                      | Delivery and safety                  | Details                               |
 | ------------------------------ | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------------------------------- |
-| `onPostSubmit`                 | A newly submitted post                              | [`OnPostSubmitRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | Does not wait for media checks       | [View](#onpostsubmit)                 |
-| `onPostCreate`                 | A newly created post after additional processing    | [`OnPostCreateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | Allows time for media checks         | [View](#onpostcreate)                 |
-| `onPostUpdate`                 | An edit to a post's body                            | [`OnPostUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | Allows applicable media checks       | [View](#onpostupdate)                 |
-| `onPostReport`                 | A report on a post                                  | [`OnPostReportRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | State-change event                   | [View](#onpostreport)                 |
-| `onPostDelete`                 | A post deletion or removal                          | [`OnPostDeleteRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | State-change event                   | [View](#onpostdelete)                 |
-| `onPostFlairUpdate`            | A post flair change                                 | [`OnPostFlairUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                       | State-change event                   | [View](#onpostflairupdate)            |
-| `onPostNsfwUpdate`             | A post's NSFW status changing                       | [`OnPostNsfwUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                         | State-change event                   | [View](#onpostnsfwupdate)             |
-| `onPostSpoilerUpdate`          | A post's spoiler status changing                    | [`OnPostSpoilerUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                   | State-change event                   | [View](#onpostspoilerupdate)          |
-| `onCommentSubmit`              | A newly submitted comment                           | [`OnCommentSubmitRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                           | Does not wait for media checks       | [View](#oncommentsubmit)              |
-| `onCommentCreate`              | A newly created comment after additional processing | [`OnCommentCreateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                           | Allows time for media checks         | [View](#oncommentcreate)              |
-| `onCommentUpdate`              | An edit to a comment's body                         | [`OnCommentUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                           | Allows applicable media checks       | [View](#oncommentupdate)              |
-| `onCommentReport`              | A report on a comment                               | [`OnCommentReportRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                           | State-change event                   | [View](#oncommentreport)              |
-| `onCommentDelete`              | A comment deletion or removal                       | [`OnCommentDeleteRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                           | State-change event                   | [View](#oncommentdelete)              |
-| `onModAction`                  | An entry in a community's moderation log            | [`OnModActionRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/modaction.d.ts)                                                     | Moderation event                     | [View](#onmodaction)                  |
-| `onModMail`                    | A new modmail message                               | [`OnModMailRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/modmail.d.ts)                                                         | Messaging event                      | [View](#onmodmail)                    |
-| `onAutomoderatorFilterPost`    | AutoModerator filtering a post                      | [`OnAutomoderatorFilterPostRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)       | Filtered-content event               | [View](#onautomoderatorfilterpost)    |
-| `onAutomoderatorFilterComment` | AutoModerator filtering a comment                   | [`OnAutomoderatorFilterCommentRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts) | Filtered-content event               | [View](#onautomoderatorfiltercomment) |
-| `onAppInstall`                 | An app installation in a subreddit                  | [`OnAppInstallRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | Lifecycle event                      | [View](#onappinstall)                 |
-| `onAppUpgrade`                 | An installation moving to a different app version   | [`OnAppUpgradeRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)                                 | Lifecycle event                      | [View](#onappupgrade)                 |
-| `onMentionInCommentCreate`     | A new comment that mentions the app username        | [`OnMentionInCommentCreateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)         | Global; allows time for media checks | [View](#onmentionincommentcreate)     |
+| `onPostSubmit`                 | A newly submitted post                              | [`OnPostSubmitRequest`](#onpostsubmit-payload)                                 | Does not wait for media checks       | [View](#onpostsubmit)                 |
+| `onPostCreate`                 | A newly created post after additional processing    | [`OnPostCreateRequest`](#onpostcreate-payload)                                 | Allows time for media checks         | [View](#onpostcreate)                 |
+| `onPostUpdate`                 | An edit to a post's body                            | [`OnPostUpdateRequest`](#onpostupdate-payload)                                 | Allows applicable media checks       | [View](#onpostupdate)                 |
+| `onPostReport`                 | A report on a post                                  | [`OnPostReportRequest`](#onpostreport-payload)                                 | State-change event                   | [View](#onpostreport)                 |
+| `onPostDelete`                 | A post deletion or removal                          | [`OnPostDeleteRequest`](#onpostdelete-payload)                                 | State-change event                   | [View](#onpostdelete)                 |
+| `onPostFlairUpdate`            | A post flair change                                 | [`OnPostFlairUpdateRequest`](#onpostflairupdate-payload)                       | State-change event                   | [View](#onpostflairupdate)            |
+| `onPostNsfwUpdate`             | A post's NSFW status changing                       | [`OnPostNsfwUpdateRequest`](#onpostnsfwupdate-payload)                         | State-change event                   | [View](#onpostnsfwupdate)             |
+| `onPostSpoilerUpdate`          | A post's spoiler status changing                    | [`OnPostSpoilerUpdateRequest`](#onpostspoilerupdate-payload)                   | State-change event                   | [View](#onpostspoilerupdate)          |
+| `onCommentSubmit`              | A newly submitted comment                           | [`OnCommentSubmitRequest`](#oncommentsubmit-payload)                           | Does not wait for media checks       | [View](#oncommentsubmit)              |
+| `onCommentCreate`              | A newly created comment after additional processing | [`OnCommentCreateRequest`](#oncommentcreate-payload)                           | Allows time for media checks         | [View](#oncommentcreate)              |
+| `onCommentUpdate`              | An edit to a comment's body                         | [`OnCommentUpdateRequest`](#oncommentupdate-payload)                           | Allows applicable media checks       | [View](#oncommentupdate)              |
+| `onCommentReport`              | A report on a comment                               | [`OnCommentReportRequest`](#oncommentreport-payload)                           | State-change event                   | [View](#oncommentreport)              |
+| `onCommentDelete`              | A comment deletion or removal                       | [`OnCommentDeleteRequest`](#oncommentdelete-payload)                           | State-change event                   | [View](#oncommentdelete)              |
+| `onModAction`                  | An entry in a community's moderation log            | [`OnModActionRequest`](#onmodaction-payload)                                                     | Moderation event                     | [View](#onmodaction)                  |
+| `onModMail`                    | A new modmail message                               | [`OnModMailRequest`](#onmodmail-payload)                                                         | Messaging event                      | [View](#onmodmail)                    |
+| `onAutomoderatorFilterPost`    | AutoModerator filtering a post                      | [`OnAutomoderatorFilterPostRequest`](#onautomoderatorfilterpost-payload)       | Filtered-content event               | [View](#onautomoderatorfilterpost)    |
+| `onAutomoderatorFilterComment` | AutoModerator filtering a comment                   | [`OnAutomoderatorFilterCommentRequest`](#onautomoderatorfiltercomment-payload) | Filtered-content event               | [View](#onautomoderatorfiltercomment) |
+| `onAppInstall`                 | An app installation in a subreddit                  | [`OnAppInstallRequest`](#onappinstall-payload)                                 | Lifecycle event                      | [View](#onappinstall)                 |
+| `onAppUpgrade`                 | An installation moving to a different app version   | [`OnAppUpgradeRequest`](#onappupgrade-payload)                                 | Lifecycle event                      | [View](#onappupgrade)                 |
+| `onMentionInCommentCreate`     | A new comment that mentions the app username        | [`OnMentionInCommentCreateRequest`](#onmentionincommentcreate-payload)         | Global; allows time for media checks | [View](#onmentionincommentcreate)     |
 
 ## Post events
 
@@ -64,17 +58,17 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This event favors faster delivery and does not wait for outstanding [media safety checks](#what-safety-processing-means). A known high-severity illegal-content match can still suppress the event. The post can later be edited, removed, or deleted.
 
-**Payload:** [`OnPostSubmitRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnPostSubmitRequest`](#onpostsubmit-payload)
 
-<details>
+<details id="onpostsubmit-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                                 |
 | ----------- | ---------------------------------- | -------- | --------------------------------------- |
 | `type`      | `"PostSubmit"`                     | Yes      | Event discriminator.                    |
-| `post`      | [`PostV2`][post-v2-type]           | No       | Snapshot of the submitted post.         |
-| `author`    | [`UserV2`][user-v2-type]           | No       | Post author.                            |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit where the post was submitted. |
+| `post`      | `PostV2`           | No       | Snapshot of the submitted post.         |
+| `author`    | `UserV2`           | No       | Post author.                            |
+| `subreddit` | `SubredditV2` | No       | Subreddit where the post was submitted. |
 
 </details>
 
@@ -86,17 +80,17 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** Delivery is intentionally later than `onPostSubmit` to allow relevant [media safety checks](#what-safety-processing-means) to complete. A known match can suppress the event. If no check applies or an applicable check has not completed by the delivery deadline, the event can still be delivered. Receiving it does not certify the post as safe, approved, or permanently available.
 
-**Payload:** [`OnPostCreateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnPostCreateRequest`](#onpostcreate-payload)
 
-<details>
+<details id="onpostcreate-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                               |
 | ----------- | ---------------------------------- | -------- | ------------------------------------- |
 | `type`      | `"PostCreate"`                     | Yes      | Event discriminator.                  |
-| `post`      | [`PostV2`][post-v2-type]           | No       | Snapshot of the created post.         |
-| `author`    | [`UserV2`][user-v2-type]           | No       | Post author.                          |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit where the post was created. |
+| `post`      | `PostV2`           | No       | Snapshot of the created post.         |
+| `author`    | `UserV2`           | No       | Post author.                          |
+| `subreddit` | `SubredditV2` | No       | Subreddit where the post was created. |
 
 </details>
 
@@ -108,18 +102,18 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** Applicable [media safety checks](#what-safety-processing-means) can delay this event, and a known match can suppress it. The `post` object is a snapshot containing the updated body.
 
-**Payload:** [`OnPostUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnPostUpdateRequest`](#onpostupdate-payload)
 
-<details>
+<details id="onpostupdate-payload">
 <summary>View payload fields</summary>
 
 | Field          | Type                               | Required | Meaning                                                                   |
 | -------------- | ---------------------------------- | -------- | ------------------------------------------------------------------------- |
 | `type`         | `"PostUpdate"`                     | Yes      | Event discriminator.                                                      |
-| `post`         | [`PostV2`][post-v2-type]           | No       | Snapshot of the post after the edit.                                      |
-| `author`       | [`UserV2`][user-v2-type]           | No       | Post author. This is not necessarily the user who performed every update. |
+| `post`         | `PostV2`           | No       | Snapshot of the post after the edit.                                      |
+| `author`       | `UserV2`           | No       | Post author. This is not necessarily the user who performed every update. |
 | `previousBody` | `string`                           | Yes      | Previous body when available; otherwise an empty string.                  |
-| `subreddit`    | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit containing the post.                                            |
+| `subreddit`    | `SubredditV2` | No       | Subreddit containing the post.                                            |
 
 </details>
 
@@ -131,16 +125,16 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a state-change event. The reported post can already be removed, changed, or unavailable when your handler runs.
 
-**Payload:** [`OnPostReportRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnPostReportRequest`](#onpostreport-payload)
 
-<details>
+<details id="onpostreport-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                                                    |
 | ----------- | ---------------------------------- | -------- | ---------------------------------------------------------- |
 | `type`      | `"PostReport"`                     | Yes      | Event discriminator.                                       |
-| `post`      | [`PostV2`][post-v2-type]           | No       | Snapshot of the reported post.                             |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit containing the post.                             |
+| `post`      | `PostV2`           | No       | Snapshot of the reported post.                             |
+| `subreddit` | `SubredditV2` | No       | Subreddit containing the post.                             |
 | `reason`    | `string`                           | Yes      | Report reason associated with this event. It can be empty. |
 
 </details>
@@ -153,9 +147,9 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This event describes a deletion action. It carries identifiers and metadata instead of the deleted post body.
 
-**Payload:** [`OnPostDeleteRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnPostDeleteRequest`](#onpostdelete-payload)
 
-<details>
+<details id="onpostdelete-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                                                                                               | Required | Meaning                                                         |
@@ -163,11 +157,11 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 | `type`      | `"PostDelete"`                                                                                     | Yes      | Event discriminator.                                            |
 | `postId`    | `string`                                                                                           | Yes      | Full post ID, such as `t3_...`.                                 |
 | `deletedAt` | `string`                                                                                           | No       | Deletion time as an ISO 8601 string.                            |
-| `author`    | [`UserV2`][user-v2-type]                                                                           | No       | Post author when available; deleted identities can be redacted. |
+| `author`    | `UserV2`                                                                           | No       | Post author when available; deleted identities can be redacted. |
 | `createdAt` | `string`                                                                                           | No       | Original creation time as an ISO 8601 string.                   |
 | `source`    | [`EventSource`](../../api/public-api/@devvit/namespaces/EventTypes/enumerations/EventSource)       | Yes      | Actor category associated with the deletion. It can be unknown. |
 | `reason`    | [`DeletionReason`](../../api/public-api/@devvit/namespaces/EventTypes/enumerations/DeletionReason) | Yes      | Normalized deletion reason. It can be unspecified or unknown.   |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type]                                                                 | No       | Subreddit that contained the post.                              |
+| `subreddit` | `SubredditV2`                                                                 | No       | Subreddit that contained the post.                              |
 
 </details>
 
@@ -179,17 +173,17 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a state-change event. It is separate from edits to the post body.
 
-**Payload:** [`OnPostFlairUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnPostFlairUpdateRequest`](#onpostflairupdate-payload)
 
-<details>
+<details id="onpostflairupdate-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                                    |
 | ----------- | ---------------------------------- | -------- | ------------------------------------------ |
 | `type`      | `"PostFlairUpdate"`                | Yes      | Event discriminator.                       |
-| `post`      | [`PostV2`][post-v2-type]           | No       | Snapshot containing the updated flair.     |
-| `author`    | [`UserV2`][user-v2-type]           | No       | User who updated the flair when available. |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit containing the post.             |
+| `post`      | `PostV2`           | No       | Snapshot containing the updated flair.     |
+| `author`    | `UserV2`           | No       | User who updated the flair when available. |
+| `subreddit` | `SubredditV2` | No       | Subreddit containing the post.             |
 
 </details>
 
@@ -201,18 +195,18 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a state-change event and can contain NSFW content. The boolean field is the new state.
 
-**Payload:** [`OnPostNsfwUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnPostNsfwUpdateRequest`](#onpostnsfwupdate-payload)
 
-<details>
+<details id="onpostnsfwupdate-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                                         |
 | ----------- | ---------------------------------- | -------- | ----------------------------------------------- |
 | `type`      | `"PostNsfwUpdate"`                 | Yes      | Event discriminator.                            |
-| `post`      | [`PostV2`][post-v2-type]           | No       | Snapshot of the updated post.                   |
-| `author`    | [`UserV2`][user-v2-type]           | No       | User who changed the NSFW state when available. |
+| `post`      | `PostV2`           | No       | Snapshot of the updated post.                   |
+| `author`    | `UserV2`           | No       | User who changed the NSFW state when available. |
 | `isNsfw`    | `boolean`                          | Yes      | New NSFW state.                                 |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit containing the post.                  |
+| `subreddit` | `SubredditV2` | No       | Subreddit containing the post.                  |
 
 </details>
 
@@ -224,18 +218,18 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a state-change event. The boolean field is the new state.
 
-**Payload:** [`OnPostSpoilerUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnPostSpoilerUpdateRequest`](#onpostspoilerupdate-payload)
 
-<details>
+<details id="onpostspoilerupdate-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                                            |
 | ----------- | ---------------------------------- | -------- | -------------------------------------------------- |
 | `type`      | `"PostSpoilerUpdate"`              | Yes      | Event discriminator.                               |
-| `post`      | [`PostV2`][post-v2-type]           | No       | Snapshot of the updated post.                      |
-| `author`    | [`UserV2`][user-v2-type]           | No       | User who changed the spoiler state when available. |
+| `post`      | `PostV2`           | No       | Snapshot of the updated post.                      |
+| `author`    | `UserV2`           | No       | User who changed the spoiler state when available. |
 | `isSpoiler` | `boolean`                          | Yes      | New spoiler state.                                 |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit containing the post.                     |
+| `subreddit` | `SubredditV2` | No       | Subreddit containing the post.                     |
 
 </details>
 
@@ -249,18 +243,18 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This event favors faster delivery and does not wait for outstanding [media safety checks](#what-safety-processing-means). A known high-severity illegal-content match can still suppress the event. The comment can later be edited, removed, or deleted.
 
-**Payload:** [`OnCommentSubmitRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnCommentSubmitRequest`](#oncommentsubmit-payload)
 
-<details>
+<details id="oncommentsubmit-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                                    |
 | ----------- | ---------------------------------- | -------- | ------------------------------------------ |
 | `type`      | `"CommentSubmit"`                  | Yes      | Event discriminator.                       |
-| `comment`   | [`CommentV2`][comment-v2-type]     | No       | Snapshot of the submitted comment.         |
-| `author`    | [`UserV2`][user-v2-type]           | No       | Comment author.                            |
-| `post`      | [`PostV2`][post-v2-type]           | No       | Post containing the comment.               |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit where the comment was submitted. |
+| `comment`   | `CommentV2`     | No       | Snapshot of the submitted comment.         |
+| `author`    | `UserV2`           | No       | Comment author.                            |
+| `post`      | `PostV2`           | No       | Post containing the comment.               |
+| `subreddit` | `SubredditV2` | No       | Subreddit where the comment was submitted. |
 
 </details>
 
@@ -272,18 +266,18 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** Delivery is intentionally later than `onCommentSubmit` to allow relevant [media safety checks](#what-safety-processing-means) to complete. A known match can suppress the event. If no check applies or an applicable check has not completed by the delivery deadline, the event can still be delivered. Receiving it does not certify the comment or its parent post as safe, approved, or permanently available.
 
-**Payload:** [`OnCommentCreateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnCommentCreateRequest`](#oncommentcreate-payload)
 
-<details>
+<details id="oncommentcreate-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                                  |
 | ----------- | ---------------------------------- | -------- | ---------------------------------------- |
 | `type`      | `"CommentCreate"`                  | Yes      | Event discriminator.                     |
-| `comment`   | [`CommentV2`][comment-v2-type]     | No       | Snapshot of the created comment.         |
-| `author`    | [`UserV2`][user-v2-type]           | No       | Comment author.                          |
-| `post`      | [`PostV2`][post-v2-type]           | No       | Post containing the comment.             |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit where the comment was created. |
+| `comment`   | `CommentV2`     | No       | Snapshot of the created comment.         |
+| `author`    | `UserV2`           | No       | Comment author.                          |
+| `post`      | `PostV2`           | No       | Post containing the comment.             |
+| `subreddit` | `SubredditV2` | No       | Subreddit where the comment was created. |
 
 </details>
 
@@ -295,19 +289,19 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** Applicable [media safety checks](#what-safety-processing-means) can delay this event, and a known match can suppress it. The `comment` object is a snapshot containing the updated body.
 
-**Payload:** [`OnCommentUpdateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnCommentUpdateRequest`](#oncommentupdate-payload)
 
-<details>
+<details id="oncommentupdate-payload">
 <summary>View payload fields</summary>
 
 | Field          | Type                               | Required | Meaning                                                  |
 | -------------- | ---------------------------------- | -------- | -------------------------------------------------------- |
 | `type`         | `"CommentUpdate"`                  | Yes      | Event discriminator.                                     |
-| `comment`      | [`CommentV2`][comment-v2-type]     | No       | Snapshot of the comment after the edit.                  |
-| `author`       | [`UserV2`][user-v2-type]           | No       | Comment author.                                          |
-| `post`         | [`PostV2`][post-v2-type]           | No       | Post containing the comment.                             |
+| `comment`      | `CommentV2`     | No       | Snapshot of the comment after the edit.                  |
+| `author`       | `UserV2`           | No       | Comment author.                                          |
+| `post`         | `PostV2`           | No       | Post containing the comment.                             |
 | `previousBody` | `string`                           | Yes      | Previous body when available; otherwise an empty string. |
-| `subreddit`    | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit containing the comment.                        |
+| `subreddit`    | `SubredditV2` | No       | Subreddit containing the comment.                        |
 
 </details>
 
@@ -319,16 +313,16 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a state-change event. The reported comment can already be removed, changed, or unavailable when your handler runs.
 
-**Payload:** [`OnCommentReportRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnCommentReportRequest`](#oncommentreport-payload)
 
-<details>
+<details id="oncommentreport-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                                                    |
 | ----------- | ---------------------------------- | -------- | ---------------------------------------------------------- |
 | `type`      | `"CommentReport"`                  | Yes      | Event discriminator.                                       |
-| `comment`   | [`CommentV2`][comment-v2-type]     | No       | Snapshot of the reported comment.                          |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit containing the comment.                          |
+| `comment`   | `CommentV2`     | No       | Snapshot of the reported comment.                          |
+| `subreddit` | `SubredditV2` | No       | Subreddit containing the comment.                          |
 | `reason`    | `string`                           | Yes      | Report reason associated with this event. It can be empty. |
 
 </details>
@@ -341,9 +335,9 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This event describes a deletion action. It carries identifiers and metadata instead of the deleted comment body.
 
-**Payload:** [`OnCommentDeleteRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnCommentDeleteRequest`](#oncommentdelete-payload)
 
-<details>
+<details id="oncommentdelete-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                                                                                               | Required | Meaning                                                                |
@@ -353,11 +347,11 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 | `postId`    | `string`                                                                                           | Yes      | Full ID of the post containing the comment.                            |
 | `parentId`  | `string`                                                                                           | Yes      | Full ID of the parent comment, or the post ID for a top-level comment. |
 | `deletedAt` | `string`                                                                                           | No       | Deletion time as an ISO 8601 string.                                   |
-| `author`    | [`UserV2`][user-v2-type]                                                                           | No       | Comment author when available; deleted identities can be redacted.     |
+| `author`    | `UserV2`                                                                           | No       | Comment author when available; deleted identities can be redacted.     |
 | `createdAt` | `string`                                                                                           | No       | Original creation time as an ISO 8601 string.                          |
 | `source`    | [`EventSource`](../../api/public-api/@devvit/namespaces/EventTypes/enumerations/EventSource)       | Yes      | Actor category associated with the deletion. It can be unknown.        |
 | `reason`    | [`DeletionReason`](../../api/public-api/@devvit/namespaces/EventTypes/enumerations/DeletionReason) | Yes      | Normalized deletion reason. It can be unspecified or unknown.          |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type]                                                                 | No       | Subreddit that contained the comment.                                  |
+| `subreddit` | `SubredditV2`                                                                 | No       | Subreddit that contained the comment.                                  |
 
 </details>
 
@@ -371,9 +365,9 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a moderation event. Its target content can already be unavailable or sanitized when your handler runs.
 
-**Payload:** [`OnModActionRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/modaction.d.ts)
+**Payload:** [`OnModActionRequest`](#onmodaction-payload)
 
-<details>
+<details id="onmodaction-payload">
 <summary>View payload fields</summary>
 
 | Field           | Type                               | Required | Meaning                                               |
@@ -381,11 +375,11 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 | `type`          | `"ModAction"`                      | Yes      | Event discriminator.                                  |
 | `action`        | `string`                           | No       | Moderation action name.                               |
 | `actionedAt`    | `string`                           | No       | Action time as an ISO 8601 string.                    |
-| `subreddit`     | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit where the action occurred.                  |
-| `moderator`     | [`UserV2`][user-v2-type]           | No       | Moderator when available; the identity can be masked. |
-| `targetUser`    | [`UserV2`][user-v2-type]           | No       | Target user for user-related actions.                 |
-| `targetComment` | [`CommentV2`][comment-v2-type]     | No       | Target comment for comment-related actions.           |
-| `targetPost`    | [`PostV2`][post-v2-type]           | No       | Target post for post-related actions.                 |
+| `subreddit`     | `SubredditV2` | No       | Subreddit where the action occurred.                  |
+| `moderator`     | `UserV2`           | No       | Moderator when available; the identity can be masked. |
+| `targetUser`    | `UserV2`           | No       | Target user for user-related actions.                 |
+| `targetComment` | `CommentV2`     | No       | Target comment for comment-related actions.           |
+| `targetPost`    | `PostV2`           | No       | Target post for post-related actions.                 |
 | `id`            | `string`                           | No       | Identifier for the moderation action.                 |
 
 </details>
@@ -398,22 +392,22 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This is a messaging event. It contains message and conversation metadata, not the message body.
 
-**Payload:** [`OnModMailRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/reddit/v2alpha/modmail.d.ts)
+**Payload:** [`OnModMailRequest`](#onmodmail-payload)
 
-<details>
+<details id="onmodmail-payload">
 <summary>View payload fields</summary>
 
 | Field                   | Type                               | Required | Meaning                                                         |
 | ----------------------- | ---------------------------------- | -------- | --------------------------------------------------------------- |
 | `type`                  | `"ModMail"`                        | Yes      | Event discriminator.                                            |
-| `messageAuthor`         | [`UserV2`][user-v2-type]           | No       | Message author when available.                                  |
+| `messageAuthor`         | `UserV2`           | No       | Message author when available.                                  |
 | `createdAt`             | `string`                           | No       | Message creation time as an ISO 8601 string.                    |
 | `messageAuthorType`     | `string`                           | Yes      | Role used by the author, such as moderator or participant.      |
 | `conversationState`     | `string`                           | Yes      | Current state, such as new, in progress, or archived.           |
 | `conversationType`      | `string`                           | Yes      | Conversation category, such as subreddit-to-user or internal.   |
 | `isAutoGenerated`       | `boolean`                          | Yes      | Whether Reddit or an automated system generated the message.    |
-| `conversationSubreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit that owns the conversation.                           |
-| `destinationSubreddit`  | [`SubredditV2`][subreddit-v2-type] | No       | Destination subreddit for subreddit-to-subreddit conversations. |
+| `conversationSubreddit` | `SubredditV2` | No       | Subreddit that owns the conversation.                           |
+| `destinationSubreddit`  | `SubredditV2` | No       | Destination subreddit for subreddit-to-subreddit conversations. |
 | `conversationId`        | `string`                           | Yes      | Base36 conversation ID without a thing prefix.                  |
 | `messageId`             | `string`                           | Yes      | Base36 message ID without a thing prefix.                       |
 
@@ -427,19 +421,19 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This event intentionally represents filtered content. Treat the post and reason as sensitive, untrusted input.
 
-**Payload:** [`OnAutomoderatorFilterPostRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnAutomoderatorFilterPostRequest`](#onautomoderatorfilterpost-payload)
 
-<details>
+<details id="onautomoderatorfilterpost-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                                                              |
 | ----------- | ---------------------------------- | -------- | -------------------------------------------------------------------- |
 | `type`      | `"AutomoderatorFilterPost"`        | Yes      | Event discriminator.                                                 |
-| `post`      | [`PostV2`][post-v2-type]           | No       | Snapshot of the filtered post.                                       |
+| `post`      | `PostV2`           | No       | Snapshot of the filtered post.                                       |
 | `removedAt` | `string`                           | No       | Filtering time as an ISO 8601 string.                                |
 | `reason`    | `string`                           | Yes      | AutoModerator reason when available; it can be empty.                |
-| `author`    | `string`                           | Yes      | Author's user ID as a string, not a [`UserV2`][user-v2-type] object. |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit containing the post.                                       |
+| `author`    | `string`                           | Yes      | Author's user ID as a string, not a `UserV2` object. |
+| `subreddit` | `SubredditV2` | No       | Subreddit containing the post.                                       |
 
 </details>
 
@@ -451,19 +445,19 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This event intentionally represents filtered content. Treat the comment and reason as sensitive, untrusted input.
 
-**Payload:** [`OnAutomoderatorFilterCommentRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnAutomoderatorFilterCommentRequest`](#onautomoderatorfiltercomment-payload)
 
-<details>
+<details id="onautomoderatorfiltercomment-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                                                              |
 | ----------- | ---------------------------------- | -------- | -------------------------------------------------------------------- |
 | `type`      | `"AutomoderatorFilterComment"`     | Yes      | Event discriminator.                                                 |
-| `comment`   | [`CommentV2`][comment-v2-type]     | No       | Snapshot of the filtered comment.                                    |
+| `comment`   | `CommentV2`     | No       | Snapshot of the filtered comment.                                    |
 | `removedAt` | `string`                           | No       | Filtering time as an ISO 8601 string.                                |
 | `reason`    | `string`                           | Yes      | AutoModerator reason when available; it can be empty.                |
-| `author`    | `string`                           | Yes      | Author's user ID as a string, not a [`UserV2`][user-v2-type] object. |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit containing the comment.                                    |
+| `author`    | `string`                           | Yes      | Author's user ID as a string, not a `UserV2` object. |
+| `subreddit` | `SubredditV2` | No       | Subreddit containing the comment.                                    |
 
 </details>
 
@@ -477,16 +471,16 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This lifecycle event is produced by an installation change, not by an ordinary app upload.
 
-**Payload:** [`OnAppInstallRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnAppInstallRequest`](#onappinstall-payload)
 
-<details>
+<details id="onappinstall-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                                             |
 | ----------- | ---------------------------------- | -------- | --------------------------------------------------- |
 | `type`      | `"AppInstall"`                     | Yes      | Event discriminator.                                |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit where the app was installed.              |
-| `installer` | [`UserV2`][user-v2-type]           | No       | User who initiated the installation when available. |
+| `subreddit` | `SubredditV2` | No       | Subreddit where the app was installed.              |
+| `installer` | `UserV2`           | No       | User who initiated the installation when available. |
 
 </details>
 
@@ -498,16 +492,16 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This lifecycle event is produced when an installation changes version. Uploading or publishing a version does not by itself invoke every installation.
 
-**Payload:** [`OnAppUpgradeRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnAppUpgradeRequest`](#onappupgrade-payload)
 
-<details>
+<details id="onappupgrade-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                                        |
 | ----------- | ---------------------------------- | -------- | ---------------------------------------------- |
 | `type`      | `"AppUpgrade"`                     | Yes      | Event discriminator.                           |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit whose installation was upgraded.     |
-| `installer` | [`UserV2`][user-v2-type]           | No       | User who initiated the upgrade when available. |
+| `subreddit` | `SubredditV2` | No       | Subreddit whose installation was upgraded.     |
+| `installer` | `UserV2`           | No       | User who initiated the upgrade when available. |
 
 </details>
 
@@ -521,19 +515,19 @@ Safety checking determines whether an event is delivered. Payload sanitization a
 
 **Delivery and safety:** This limited-access global event allows time for applicable [media safety checks](#what-safety-processing-means) on the comment and its parent post. A known match can suppress the event, but ordinary NSFW content can still be present.
 
-**Payload:** [`OnMentionInCommentCreateRequest`](https://unpkg.com/browse/@devvit/protos@0.14.0/json/devvit/events/v1alpha/events.d.ts)
+**Payload:** [`OnMentionInCommentCreateRequest`](#onmentionincommentcreate-payload)
 
-<details>
+<details id="onmentionincommentcreate-payload">
 <summary>View payload fields</summary>
 
 | Field       | Type                               | Required | Meaning                                         |
 | ----------- | ---------------------------------- | -------- | ----------------------------------------------- |
 | `type`      | `"MentionInCommentCreate"`         | Yes      | Event discriminator.                            |
-| `comment`   | [`CommentV2`][comment-v2-type]     | No       | Snapshot of the comment containing the mention. |
-| `author`    | [`UserV2`][user-v2-type]           | No       | Comment author.                                 |
-| `post`      | [`PostV2`][post-v2-type]           | No       | Post containing the comment.                    |
-| `subreddit` | [`SubredditV2`][subreddit-v2-type] | No       | Subreddit containing the comment.               |
-| `mentions`  | [`Mentions`][mentions-type]        | No       | Parsed username mentions found in the comment.  |
+| `comment`   | `CommentV2`     | No       | Snapshot of the comment containing the mention. |
+| `author`    | `UserV2`           | No       | Comment author.                                 |
+| `post`      | `PostV2`           | No       | Post containing the comment.                    |
+| `subreddit` | `SubredditV2` | No       | Subreddit containing the comment.               |
+| `mentions`  | `Mentions`        | No       | Parsed username mentions found in the comment.  |
 
 </details>
 
