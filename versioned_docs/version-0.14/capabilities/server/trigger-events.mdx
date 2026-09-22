@@ -2,8 +2,6 @@
 
 Use this catalog to choose a trigger and understand the request sent to your endpoint. For configuration and handler examples, see [Triggers](./triggers).
 
-The request types on this page are exported by `@devvit/web/shared`. Select a linked request type to jump to its payload fields, then expand **View payload fields** for top-level fields and optionality. Use your installed package's TypeScript definitions as the source of truth for nested objects.
-
 ## Delivery and payload expectations
 
 - **Delivery is asynchronous.** Reddit state can change between the action and your handler. Fetch the current object when your decision depends on its latest state.
